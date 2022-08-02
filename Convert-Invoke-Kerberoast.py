@@ -34,7 +34,6 @@ def format_Data(fHandle):
                 SamAccountName = ''
                 DistinguishedName = ''
                 Hash = ''
-                pass
     except:
         pass
     return Hashes
@@ -47,15 +46,14 @@ parser.add_argument('-w', action="store", dest="outputHandle")
 
 parsed = parser.parse_args()
 
-if(os.path.isfile(parsed.inputHandle)):
+if (os.path.isfile(parsed.inputHandle)):
     print("Opening file: {0}").format(parsed.inputHandle)
     output = format_Data(parsed.inputHandle)
     if parsed.outputHandle:
-        fOutput = open(parsed.outputHandle, 'w')
-        for element in output:
-            fOutput.write(element)
-            fOutput.write('\n')
-        fOutput.close()
+        with open(parsed.outputHandle, 'w') as fOutput:
+            for element in output:
+                fOutput.write(element)
+                fOutput.write('\n')
         print("Hashes written to: {0}".format(parsed.outputHandle))
     else:
         for element in output:
